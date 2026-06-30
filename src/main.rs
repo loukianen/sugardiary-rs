@@ -1,5 +1,9 @@
 mod consts;
+mod utils;
 use consts::{MainData, ParsedData};
+
+#[cfg(test)]
+#[macro_use] extern crate assertables;
 
 fn main() {
     let main_data = {

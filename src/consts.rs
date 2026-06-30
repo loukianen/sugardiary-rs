@@ -9,15 +9,15 @@ pub enum DiaryTypes {
     FivePerWeek, // five measurements per week without limits
 }
 
-const DAYS_IN_WEEK: u8 = 7;
-const MILLISECONDS_PER_DAY: u32 = 60*60*24*1000;
-const DAYS_IN_WORK_CYCLE: u8 = 4;
-const AVAILABLE_MEASUREMENTS_IN_WORK_DAY: [u8; 3] = [1,5,6]; //can be mesuried b.breakfast, b.dinner, a.dinner
-const NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY: u8 = 4; //can be mesuried b.breakfast, a.breakfast, b.dinner, a.dinner
-const NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY: u8 = 6; //all mesurement
-const TABLE_HEADER: &str = concat!("   Дата|Измерение сахара крови, ммоль/л\n",
-                                  "|Завтрак||Обед||Ужин\n",
-                                  "|До|После|До|После|До|После\n");
+// const DAYS_IN_WEEK: u8 = 7;
+// const MILLISECONDS_PER_DAY: u32 = 60*60*24*1000;
+// const DAYS_IN_WORK_CYCLE: u8 = 4;
+// const AVAILABLE_MEASUREMENTS_IN_WORK_DAY: [u8; 3] = [1, 5, 6]; //can be mesuried b.breakfast, b.dinner, a.dinner
+// const NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY: u8 = 4; //can be mesuried b.breakfast, a.breakfast, b.dinner, a.dinner
+// const NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY: u8 = 6; //all mesurement
+// const TABLE_HEADER: &str = concat!("   Дата|Измерение сахара крови, ммоль/л\n",
+//                                   "|Завтрак||Обед||Ужин\n",
+//                                   "|До|После|До|После|До|После\n");
 
 
 #[derive(Deserialize, Serialize, Debug)]
