@@ -1,3 +1,4 @@
+use chrono::NaiveDate;
 use rand;
 
 pub trait DataForSelection {
@@ -39,6 +40,17 @@ fn test_choose_one_from_amount_as_vector() {
     assert_contains!(vector_data, &res);
 }
 
+const EMPTY_STR: &str = "";
+pub fn get_empty_record(date: NaiveDate) -> (String, &'static str, &'static str, &'static str, &'static str, &'static str, &'static str) {
+  (date.format("%d.%m.%Y").to_string(), EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR)
+}
+
+#[test]
+fn test_get_empty_record() {
+    let date: NaiveDate = NaiveDate::from_ymd_opt(2026, 07, 02).unwrap();
+    let record = get_empty_record(date);
+    assert_eq!(record, ("02.07.2026".to_string(), "", "", "", "", "", "",));
+}
 
 // // function coose two indexes from 1 to 'amount'.
 // // If first is even (after eating), then second should be uneven (before eating)
@@ -60,9 +72,7 @@ fn test_choose_one_from_amount_as_vector() {
 //   return [first, second];
 // }
 
-// export function getEmptyRecord(date) {
-//   return [date.toLocaleDateString(), '', '', '', '', '', ''];
-// }
+
 
 // /**
 //  * Reads the file and parses the input data.

@@ -1,14 +1,7 @@
 use serde::{Deserialize, Serialize};
 use chrono::NaiveDate;
 
-#[derive(Deserialize, Serialize, Debug)]
-pub enum DiaryTypes {
-    TwoPerday22Work, // two measurements per day with a 2/2 work schedule
-    TwoPerDay, // two measurements per day without limits
-    FivePerWeek22Work, // five measurements per week with a 2/2 work schedule
-    FivePerWeek, // five measurements per week without limits
-}
-
+pub const MARK: &str = "●";
 // const DAYS_IN_WEEK: u8 = 7;
 // const MILLISECONDS_PER_DAY: u32 = 60*60*24*1000;
 // const DAYS_IN_WORK_CYCLE: u8 = 4;
@@ -19,6 +12,13 @@ pub enum DiaryTypes {
 //                                   "|Завтрак||Обед||Ужин\n",
 //                                   "|До|После|До|После|До|После\n");
 
+#[derive(Deserialize, Serialize, Debug)]
+pub enum DiaryTypes {
+    TwoPerday22Work, // two measurements per day with a 2/2 work schedule
+    TwoPerDay, // two measurements per day without limits
+    FivePerWeek22Work, // five measurements per week with a 2/2 work schedule
+    FivePerWeek, // five measurements per week without limits
+}
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct ParsedData {
