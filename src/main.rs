@@ -1,5 +1,6 @@
 mod consts;
 mod utils;
+mod get_diary_five_per_week;
 use consts::{MainData, ParsedData};
 
 #[cfg(test)]
