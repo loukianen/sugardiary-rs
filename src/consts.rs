@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use chrono::NaiveDate;
 
 pub type Record = (String, [&'static str; 6]); // &'static str, &'static str, &'static str, &'static str, &'static str);
+pub type DiaryCreator = fn (start_date: NaiveDate, diary_length: u16) -> Vec<Record>;
 pub const MARK: &str = "●";
 pub const DAYS_IN_WEEK: u32 = 7;
 // const MILLISECONDS_PER_DAY: u32 = 60*60*24*1000;
@@ -9,9 +10,9 @@ pub const DAYS_IN_WEEK: u32 = 7;
 // const AVAILABLE_MEASUREMENTS_IN_WORK_DAY: [u8; 3] = [1, 5, 6]; //can be mesuried b.breakfast, b.dinner, a.dinner
 // const NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY: u8 = 4; //can be mesuried b.breakfast, a.breakfast, b.dinner, a.dinner
 pub const NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY: u8 = 6; //all mesurement
-// const TABLE_HEADER: &str = concat!("   Дата|Измерение сахара крови, ммоль/л\n",
-//                                   "|Завтрак||Обед||Ужин\n",
-//                                   "|До|После|До|После|До|После\n");
+pub const TABLE_HEADER: &str = concat!("    Дата|Измерение сахара крови, ммоль/л\n",
+                                  "|Завтрак||Обед||Ужин\n",
+                                  "|До|После|До|После|До|После");
 
 #[derive(Deserialize, Serialize, Debug)]
 pub enum DiaryTypes {
@@ -27,12 +28,12 @@ pub struct ParsedData {
     diary_length: u16,
     diary_type: DiaryTypes,
 }
-#[derive(Debug)]
 
+#[derive(Debug)]
 pub struct MainData {
   pub start_date: NaiveDate,
   pub diary_length: u16,
-  diary_type: DiaryTypes,
+  pub diary_type: DiaryTypes,
 }
 
 impl From<ParsedData> for MainData {
