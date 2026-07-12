@@ -2,7 +2,7 @@ use crate::utils;
 use crate::consts::{DAYS_IN_WEEK, NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY, Record};
 use chrono::{Datelike, NaiveDate};
 
-pub fn get_diary_five_per_week ( (start_date, diary_length): (NaiveDate, u16)) -> Vec<Record> {
+pub fn get_diary_five_per_week ( start_date: NaiveDate, diary_length: u16) -> Vec<Record> {
   let mut cur_date = start_date;
   let mut dairy = Vec::new();
   let mut number_day_of_week = cur_date.weekday().number_from_monday();
@@ -38,7 +38,7 @@ pub fn get_diary_five_per_week ( (start_date, diary_length): (NaiveDate, u16)) -
 fn test_get_diary_five_per_week() {
     let date= NaiveDate::from_ymd_opt(2026, 07, 05).unwrap();
     let len: u16 = 5;
-    let diary: Vec<Record> = get_diary_five_per_week((date, len));
+    let diary: Vec<Record> = get_diary_five_per_week(date, len);
     let diary_len = diary.len() as u16;
     assert_eq!(diary_len, len);
     assert_eq!(diary[2].0, "07.07.2026");

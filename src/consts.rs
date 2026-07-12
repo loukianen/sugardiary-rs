@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use chrono::NaiveDate;
 
-pub type Record = (String, &'static str, &'static str, &'static str, &'static str, &'static str, &'static str);
+pub type Record = (String, [&'static str; 6]); // &'static str, &'static str, &'static str, &'static str, &'static str);
 pub const MARK: &str = "●";
 pub const DAYS_IN_WEEK: u32 = 7;
 // const MILLISECONDS_PER_DAY: u32 = 60*60*24*1000;
@@ -31,7 +31,7 @@ pub struct ParsedData {
 
 pub struct MainData {
   pub start_date: NaiveDate,
-  diary_length: u16,
+  pub diary_length: u16,
   diary_type: DiaryTypes,
 }
 

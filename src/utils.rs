@@ -1,6 +1,5 @@
-use chrono::{NaiveDate, Weekday};
+use chrono::NaiveDate;
 use rand;
-use serde::Serialize;
 use crate::consts::{MARK, Record};
 
 pub trait DataForSelection {
@@ -44,14 +43,14 @@ fn test_choose_one_from_amount_as_vector() {
 
 const EMPTY_STR: &str = "";
 pub fn get_empty_record(date: NaiveDate) -> Record {
-  (date.format("%d.%m.%Y").to_string(), EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR)
+  (date.format("%d.%m.%Y").to_string(), [EMPTY_STR; 6]) //, EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR)
 }
 
 #[test]
 fn test_get_empty_record() {
     let date: NaiveDate = NaiveDate::from_ymd_opt(2026, 07, 02).unwrap();
     let record: Record = get_empty_record(date);
-    assert_eq!(record, ("02.07.2026".to_string(), "", "", "", "", "", "",));
+    assert_eq!(record, ("02.07.2026".to_string(), [""; 6])); // , "", "", "", "", "",));
 }
 
 pub fn choose_two_days_number_of_week() -> Vec<u32> {
@@ -76,15 +75,7 @@ fn test_choose_two_days_number_of_week() {
 
 pub fn mark_measurement(mut record: Record, measurements: Vec<u8>) -> Record {
   for measurement in measurements {
-    match measurement{
-      1 => record.1 = MARK,
-      2 => record.2 = MARK,
-      3 => record.3 = MARK,
-      4 => record.4 = MARK,
-      5 => record.5 = MARK,
-      6 => record.6 = MARK,
-      _ => (),
-    }
+    record.1[(measurement - 1) as usize] = MARK;
   }
   record
 }
@@ -94,9 +85,8 @@ fn test_mark_measurement() {
     let date: NaiveDate = NaiveDate::from_ymd_opt(2026, 07, 02).unwrap();
     let record: Record = get_empty_record(date);
     let measurement = vec![2, 5];
-    assert_eq!(mark_measurement(record, measurement), ("02.07.2026".to_string(), "", "●", "", "", "●", "",));
+    assert_eq!(mark_measurement(record, measurement), ("02.07.2026".to_string(), ["", "●", "", "", "●", "",]));
 }
-
 
 // // function coose two indexes from 1 to 'amount'.
 // // If first is even (after eating), then second should be uneven (before eating)

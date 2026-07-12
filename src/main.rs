@@ -3,6 +3,8 @@ mod utils;
 mod get_diary_five_per_week;
 use consts::{MainData, ParsedData};
 
+use crate::get_diary_five_per_week::get_diary_five_per_week;
+
 #[cfg(test)]
 #[macro_use] extern crate assertables;
 
@@ -12,7 +14,7 @@ fn main() {
         let res = serde_json::from_str::<ParsedData>(&res).expect("Incorrect data in input.json");
         MainData::from(res)
     };
-    let next = main_data.start_date.succ_opt().unwrap();
+    let diary = get_diary_five_per_week(main_data.start_date, main_data.diary_length);
 
-    println!("Data: {:?}", next.succ_opt().unwrap());
+    println!("Diary: {:?}", diary);
 }
