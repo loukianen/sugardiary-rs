@@ -75,14 +75,14 @@ pub fn get_diary_creator(diary_type: DiaryTypes) -> DiaryCreator {
 
 const EMPTY_STR: &str = "";
 pub fn get_empty_record(date: NaiveDate) -> Record {
-  (date.format("%d.%m.%Y").to_string(), [EMPTY_STR; 6]) //, EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR, EMPTY_STR)
+  (date.format("%d.%m.%Y").to_string(), [EMPTY_STR; 6])
 }
 
 #[test]
 fn test_get_empty_record() {
     let date: NaiveDate = NaiveDate::from_ymd_opt(2026, 07, 02).unwrap();
     let record: Record = get_empty_record(date);
-    assert_eq!(record, ("02.07.2026".to_string(), [""; 6])); // , "", "", "", "", "",));
+    assert_eq!(record, ("02.07.2026".to_string(), [""; 6]));
 }
 
 
@@ -136,22 +136,4 @@ pub fn write_diary(diary: Vec<Record>) {
 //   }
 //   const second = secondSet[secondIndex];
 //   return [first, second];
-// }
-
-
-
-// /**
-//  * Reads the file and parses the input data.
-//  * @returns {Object} An object with the start date and the length of the diary.
-//  */
-
-// export function parseInput() {
-//   try {
-//     const content = fs.readFileSync('./src/input.json', 'utf-8');
-//     const params = JSON.parse(content);
-//     params.startDate = new Date(params.startDate);
-//     return params;
-//   } catch (e) {
-//     return {};
-//   }
 // }
