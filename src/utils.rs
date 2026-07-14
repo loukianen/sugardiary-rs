@@ -1,5 +1,6 @@
 use chrono::NaiveDate;
 use crate::get_diary_five_per_week::get_diary_five_per_week;
+use crate::get_diary_five_per_week_22_work::get_diary_five_per_week_22_work;
 use crate::consts::{DiaryCreator, DiaryTypes, MARK, MainData, ParsedData, Record, TABLE_HEADER};
 use std::fs::{read_to_string, write};
 use rand;
@@ -66,6 +67,7 @@ fn test_choose_one_from_amount_as_vector() {
 pub fn get_diary_creator(diary_type: DiaryTypes) -> DiaryCreator {
   match diary_type {
     DiaryTypes::FivePerWeek => get_diary_five_per_week,
+    DiaryTypes::FivePerWeek22Work => get_diary_five_per_week_22_work,
     _ => get_diary_five_per_week,
   }
 }

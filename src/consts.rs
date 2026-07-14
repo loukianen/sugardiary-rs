@@ -5,10 +5,9 @@ pub type Record = (String, [&'static str; 6]); // &'static str, &'static str, &'
 pub type DiaryCreator = fn (start_date: NaiveDate, diary_length: u16) -> Vec<Record>;
 pub const MARK: &str = "●";
 pub const DAYS_IN_WEEK: u32 = 7;
-// const MILLISECONDS_PER_DAY: u32 = 60*60*24*1000;
-// const DAYS_IN_WORK_CYCLE: u8 = 4;
-// const AVAILABLE_MEASUREMENTS_IN_WORK_DAY: [u8; 3] = [1, 5, 6]; //can be mesuried b.breakfast, b.dinner, a.dinner
-// const NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY: u8 = 4; //can be mesuried b.breakfast, a.breakfast, b.dinner, a.dinner
+pub const DAYS_IN_WORK_CYCLE: u16 = 4;
+pub const AVAILABLE_MEASUREMENTS_IN_WORK_DAY: [u8; 3] = [1, 5, 6]; //can be mesuried b.breakfast, b.dinner, a.dinner
+pub const NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY: u8 = 4; //can be mesuried b.breakfast, a.breakfast, b.dinner, a.dinner
 pub const NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY: u8 = 6; //all mesurement
 pub const TABLE_HEADER: &str = concat!("    Дата|Измерение сахара крови, ммоль/л\n",
                                   "|Завтрак||Обед||Ужин\n",

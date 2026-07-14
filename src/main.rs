@@ -1,6 +1,7 @@
 mod consts;
 mod utils;
 mod get_diary_five_per_week;
+mod get_diary_five_per_week_22_work;
 
 
 #[cfg(test)]
