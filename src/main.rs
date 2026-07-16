@@ -1,8 +1,9 @@
 mod consts;
-mod utils;
 mod get_diary_five_per_week;
 mod get_diary_five_per_week_22_work;
-
+mod get_diary_two_per_day;
+mod utils;
+mod utils_tests;
 
 #[cfg(test)]
 #[macro_use] extern crate assertables;
