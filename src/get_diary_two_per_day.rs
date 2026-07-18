@@ -6,7 +6,7 @@ use crate::utils::{
 use crate::consts::{NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY, Record};
 use chrono::NaiveDate;
 
-pub fn get_diary_two_per_day (start_date: NaiveDate, diary_length: u16) -> Vec<Record> {
+pub fn get_diary_two_per_day (start_date: NaiveDate, diary_length: u32) -> Vec<Record> {
   let mut cur_date = start_date;
   let mut diary = Vec::new();
 
@@ -29,10 +29,10 @@ pub fn get_diary_two_per_day (start_date: NaiveDate, diary_length: u16) -> Vec<R
 #[test]
 fn test_get_diary_two_per_day() {
     let date= NaiveDate::from_ymd_opt(2026, 07, 05).unwrap();
-    let len: u16 = 10;
+    let len: u32 = 10;
     let diary: Vec<Record> = get_diary_two_per_day(date, len);
-    let diary_len = diary.len() as u16;
+    let diary_len = diary.len() as u32;
     assert_eq!(diary_len, len);
     assert_eq!(diary[2].0, "07.07.2026");
-    println!("Diary from test get_diary_five_per_week: {:?}", diary);
+    println!("Diary from test get_diary_two_per_day: {:?}", diary);
 }

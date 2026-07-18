@@ -2,6 +2,7 @@ mod consts;
 mod get_diary_five_per_week;
 mod get_diary_five_per_week_22_work;
 mod get_diary_two_per_day;
+mod get_diary_two_per_day_22_work;
 mod utils;
 mod utils_tests;
 

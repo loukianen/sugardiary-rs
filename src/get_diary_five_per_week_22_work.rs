@@ -1,17 +1,14 @@
 use crate::utils::{
-  choose_one_from_amount,
-  choose_two_days_number_of_week,
-  get_empty_record,
-  mark_measurement
+  choose_one_from_amount, choose_two_from_amount, get_empty_record, mark_measurement
 };
 use crate::consts::*;
 use chrono::{Datelike, NaiveDate};
 
-pub fn get_diary_five_per_week_22_work (start_date: NaiveDate, diary_length: u16) -> Vec<Record> {
+pub fn get_diary_five_per_week_22_work (start_date: NaiveDate, diary_length: u32) -> Vec<Record> {
   let mut cur_date = start_date;
   let mut diary = Vec::new();
   let mut number_day_of_week = cur_date.weekday().number_from_monday();
-  let mut days_without_measuring = choose_two_days_number_of_week();
+  let mut days_without_measuring = choose_two_from_amount(&DAYS_IN_WEEK);
   
   let mut index = 0;
   while index < diary_length {
@@ -30,7 +27,7 @@ pub fn get_diary_five_per_week_22_work (start_date: NaiveDate, diary_length: u16
     
     if number_day_of_week == DAYS_IN_WEEK {
       number_day_of_week = 1;
-      days_without_measuring = choose_two_days_number_of_week();
+      days_without_measuring = choose_two_from_amount(&DAYS_IN_WEEK);
     } else {
       number_day_of_week += 1;
     }
@@ -48,9 +45,9 @@ pub fn get_diary_five_per_week_22_work (start_date: NaiveDate, diary_length: u16
 #[test]
 fn test_get_diary_five_per_week_22_work() {
     let date= NaiveDate::from_ymd_opt(2026, 07, 05).unwrap();
-    let len: u16 = 20;
+    let len: u32 = 20;
     let diary: Vec<Record> = get_diary_five_per_week_22_work(date, len);
-    let diary_len = diary.len() as u16;
+    let diary_len = diary.len() as u32;
     assert_eq!(diary_len, len);
     assert_eq!(diary[2].0, "07.07.2026");
     println!("Diary from test get_diary_five_per_week_22_work: {:?}", diary);

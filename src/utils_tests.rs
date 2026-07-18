@@ -5,25 +5,16 @@ use chrono::NaiveDate;
 #[cfg(test)]
 use crate::consts::Record;
 
-#[test]
-fn test_choose_two_days_number_of_week() {
-    let days= choose_two_days_number_of_week();
-    assert_eq!(days.len(), 2);
-    assert_in_range!(days[0], 1..=7);
-    assert_in_range!(days[1], 1..=7);
-    assert!(days[0] != days[1]);
-}
-
 
 #[test]
 fn test_choose_one_from_amount_as_number() {
-  let ex= 6 as u8;
+  let ex= 6 as u32;
   assert_in_range!(choose_one_from_amount(&ex), 1..=ex);
   assert_eq!(choose_one_from_amount(&1), 1);
 }
 #[test]
 fn test_choose_one_from_amount_as_vector() {
-  let vector_data: Vec<u8> = [2, 7, 9, 1, 15].to_vec();
+  let vector_data: Vec<u32> = [2, 7, 9, 1, 15].to_vec();
   let res = choose_one_from_amount(&vector_data);
   assert_contains!(vector_data, &res);
   assert_eq!(choose_one_from_amount(&[2].to_vec()), 2
@@ -44,7 +35,7 @@ fn test_panic_in_choose_one_from_amount_as_vector() {
 
 #[test]
 fn test_choose_two_from_amount_as_number() {
-  let ex= 6 as u8;
+  let ex= 6 as u32;
   let res = choose_two_from_amount(&ex);
   assert_contains!(1..=ex, &res[0]);
   assert_contains!(1..=ex, &res[1]);
@@ -55,7 +46,7 @@ fn test_choose_two_from_amount_as_number() {
 }
 #[test]
 fn test_choose_two_from_amount_as_vector() {
-  let vector_data: Vec<u8> = [2, 7, 9, 1, 15, 36, 159, 0].to_vec();
+  let vector_data: Vec<u32> = [2, 7, 9, 1, 15, 36, 159, 0].to_vec();
   let res = choose_two_from_amount(&vector_data);
   assert_eq!(res.len(), 2);
   assert_contains!(vector_data, &res[0]);
