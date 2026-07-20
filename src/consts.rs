@@ -37,8 +37,8 @@ pub struct MainData {
 
 impl From<ParsedData> for MainData {
     fn from(s: ParsedData) -> MainData {
-        MainData {
-            start_date: NaiveDate::parse_from_str(&s.start_date, "%Y-%m-%d").expect("Неверный формат даты"),
+        MainData { 
+            start_date: NaiveDate::parse_from_str(&s.start_date, "%d.%m.%Y").expect("Неверный формат даты"),
             diary_length: s.diary_length,
             diary_type: s.diary_type,
         }

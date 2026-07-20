@@ -6,12 +6,14 @@ mod get_diary_two_per_day_22_work;
 mod utils;
 mod utils_tests;
 
+use utils::{get_diary_creator, get_main_data, write_diary};
+
 #[cfg(test)]
 #[macro_use] extern crate assertables;
 
 fn main() {
-    let main_data = utils::get_main_data();
-    let diary_creator = utils::get_diary_creator(main_data.diary_type);
+    let main_data = get_main_data();
+    let diary_creator = get_diary_creator(main_data.diary_type);
     let diary = diary_creator(main_data.start_date, main_data.diary_length);
-    utils::write_diary(diary);
+    write_diary(diary);
 }

@@ -1,10 +1,10 @@
-use chrono::NaiveDate;
+use chrono::{Local, NaiveDate};
 use crate::get_diary_five_per_week::get_diary_five_per_week;
 use crate::get_diary_five_per_week_22_work::get_diary_five_per_week_22_work;
 use crate::get_diary_two_per_day::get_diary_two_per_day;
 use crate::get_diary_two_per_day_22_work::get_diary_two_per_day_22_work;
 use crate::consts::*;
-use std::fs::{read_to_string, write};
+use std::fs::{exists, read_to_string, write};
 use rand;
 
 pub trait DataForSelection {
@@ -89,9 +89,18 @@ pub fn get_empty_record(date: NaiveDate) -> Record {
 
 
 pub fn get_main_data () -> MainData {
-  let res = read_to_string("input.json").expect("Can't read file");
-  let res = serde_json::from_str::<ParsedData>(&res).expect("Incorrect data in input.json");
-  MainData::from(res)
+  if exists("input.json").unwrap() {
+    println!("File not expect but branch is working");
+    let res = read_to_string("input.json").expect("Can't read file");
+    let res = serde_json::from_str::<ParsedData>(&res).expect("Incorrect data in input.json");
+    MainData::from(res)
+  } else {
+    MainData {
+      start_date: Local::now().date_naive(),
+      diary_length: 92,
+      diary_type: DiaryTypes::FivePerWeek,
+    }
+  }
 }
 
 pub fn mark_measurement(mut record: Record, measurements: Vec<u32>) -> Record {
