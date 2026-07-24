@@ -90,7 +90,6 @@ pub fn get_empty_record(date: NaiveDate) -> Record {
 
 pub fn get_main_data () -> MainData {
   if exists("input.json").unwrap() {
-    println!("File not expect but branch is working");
     let res = read_to_string("input.json").expect("Can't read file");
     let res = serde_json::from_str::<ParsedData>(&res).expect("Incorrect data in input.json");
     MainData::from(res)
@@ -102,6 +101,7 @@ pub fn get_main_data () -> MainData {
     }
   }
 }
+
 
 pub fn mark_measurement(mut record: Record, measurements: Vec<u32>) -> Record {
   for measurement in measurements {
@@ -118,4 +118,10 @@ pub fn write_diary(diary: Vec<Record>) {
       content.push_str(&rec);
   }
   let _ = write("output.txt", content).unwrap();
+}
+
+pub fn write_config_file(data: MainData) {
+  let prepared_data: ParsedData = data.into();
+  let data_for_writing: String = serde_json::to_string_pretty(&prepared_data).unwrap();
+  write("input.json", data_for_writing).unwrap();
 }

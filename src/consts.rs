@@ -13,7 +13,7 @@ pub const TABLE_HEADER: &str = concat!("    Дата|Измерение саха
                                   "|Завтрак||Обед||Ужин\n",
                                   "|До|После|До|После|До|После");
 
-#[derive(Deserialize, Serialize, Debug)]
+#[derive(Clone, Deserialize, Serialize, Debug)]
 pub enum DiaryTypes {
     TwoPerDay22Work, // two measurements per day with a 2/2 work schedule
     TwoPerDay, // two measurements per day without limits
@@ -41,6 +41,16 @@ impl From<ParsedData> for MainData {
             start_date: NaiveDate::parse_from_str(&s.start_date, "%d.%m.%Y").expect("Неверный формат даты"),
             diary_length: s.diary_length,
             diary_type: s.diary_type,
+        }
+    }
+}
+
+impl Into<ParsedData> for MainData {
+    fn into(self) -> ParsedData {
+        ParsedData {
+            start_date: self.start_date.format("%d.%m.%Y").to_string(),
+            diary_length: self.diary_length,
+            diary_type: self.diary_type
         }
     }
 }
