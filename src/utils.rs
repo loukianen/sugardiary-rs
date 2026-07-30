@@ -91,7 +91,7 @@ pub fn get_empty_record(date: NaiveDate) -> Record {
 pub fn get_main_data () -> MainData {
   if exists("input.json").unwrap() {
     let res = read_to_string("input.json").expect("Can't read file");
-    let res = serde_json::from_str::<ParsedData>(&res).expect("Incorrect data in input.json");
+    let res = serde_json::from_str::<ParsedData>(&res).expect("Некорректные данные в input.json");
     MainData::from(res)
   } else {
     MainData {
