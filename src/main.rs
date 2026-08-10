@@ -7,6 +7,7 @@ mod get_diary_two_per_day_22_work;
 mod utils;
 mod utils_tests;
 
+use consts::TermTextColors;
 use get_data_from_user::get_data_from_user;
 use utils::{get_diary_creator, get_main_data, write_config_file, write_diary};
 
@@ -20,4 +21,5 @@ fn main() {
     let diary = diary_creator(user_data.start_date.clone(), user_data.diary_length.clone());
     write_diary(diary);
     write_config_file(user_data);
+    println!("\n{}Дневник записан в файл output.txt{}\n", TermTextColors::Green, TermTextColors::Reset);
 }

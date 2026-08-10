@@ -16,6 +16,26 @@ pub const TABLE_HEADER: &str = concat!("    Дата|Измерение саха
                                   "|Завтрак||Обед||Ужин\n",
                                   "|До|После|До|После|До|После");
 
+#[derive(Clone, Copy)]
+pub enum TermTextColors {
+    Blue,
+    Green,
+    Red,
+    Reset,
+}
+
+impl fmt::Display for TermTextColors {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            TermTextColors::Blue =>write!(f, "\x1b[36m"),
+            TermTextColors::Green => write!(f, "\x1b[32m"),
+            TermTextColors::Red => write!(f, "\x1b[31m"),
+            TermTextColors::Reset => write!(f, "\x1b[0m"),
+        }
+    }
+}
+
+
 #[repr(usize)]
 #[derive(Clone, Copy, Debug, Deserialize, EnumIter, Serialize, IntoPrimitive, TryFromPrimitive,
     PartialEq, Eq,     // Реализует операции ==, !=
