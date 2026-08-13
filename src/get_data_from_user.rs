@@ -14,9 +14,12 @@ pub fn get_data_from_user(data: MainData) -> MainData {
         .unwrap();
 
     let len: u32 = Input::new()
-        .with_prompt(format!("{}{}{}", Blue, "\nВведите длину дневника в днях", Reset))
-        .default(data.diary_length.clone())
+        .validate_with(diary_length_validator)
+        .with_prompt(format!("{}{}{}", Blue, "\nВведите длину дневника в днях (от 1 до 1000)", Reset))
+        .default(data.diary_length.to_string())
         .interact()
+        .unwrap()
+        .parse::<u32>()
         .unwrap();
 
     let mut list = vec![];
@@ -52,7 +55,7 @@ fn date_validator(text: &String) -> Result<()> {
 }
 
 #[cfg(test)]
-mod tests {
+mod tests_date_validator {
     use super::*;
     // Вспомогательная функция, чтобы не дублировать код проверки результата
     fn is_valid(input: &String) -> bool {
@@ -116,3 +119,87 @@ mod tests {
     }
 }
 
+fn diary_length_validator(text: &String) -> Result<()> {
+    let validation_error = Err(Error::from(IoError::new(IoErrorKind::Other, format!("{}{}{}", Red, "\nВведена неверная длина дневника.\nВведите число дней от 1 до 1000", Reset))));
+    let len = match text.parse::<u32>() {
+        Ok(number) => number,
+        Err(_) => 0,
+    };
+    if len < 1 || len > 1000 {
+        validation_error
+    } else {
+        Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests_diary_len_validator {
+    use super::*;
+
+    #[test]
+    fn test_valid_length_min() {
+        let input = String::from("1");
+        let result = diary_length_validator(&input);
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn test_valid_length_max() {
+        let input = String::from("1000");
+        let result = diary_length_validator(&input);
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn test_valid_length_middle() {
+        let input = String::from("500");
+        let result = diary_length_validator(&input);
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn test_invalid_length_zero() {
+        let input = String::from("0");
+        let result = diary_length_validator(&input);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_invalid_length_below_min() {
+        let input = String::from("-5"); // парсинг в u32 даст ошибку, либо проверка диапазона
+        let result = diary_length_validator(&input);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_invalid_length_above_max() {
+        let input = String::from("1001");
+        let result = diary_length_validator(&input);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_non_numeric_input() {
+        let input = String::from("abc");
+        let result = diary_length_validator(&input);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_empty_string() {
+        let input = String::new();
+        let result = diary_length_validator(&input);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_error_message_contains_expected_text() {
+        let input = String::from("0");
+        let err = diary_length_validator(&input).unwrap_err();
+
+        let msg = err.to_string();
+
+        assert!(msg.contains("Введена неверная длина дневника."), "Сообщение об ошибке должно содержать ожидаемый текст");
+        assert!(msg.contains("от 1 до 1000"), "Сообщение должно содержать диапазон");
+    }
+}
