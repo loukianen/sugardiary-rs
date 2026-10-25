@@ -4,11 +4,12 @@ use chrono::NaiveDate;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 use strum_macros::EnumIter;
 
-pub type Record = (String, [&'static str; 6]); // &'static str, &'static str, &'static str, &'static str, &'static str);
+pub type Record = (String, [&'static str; 6]);
 pub type DiaryCreator = fn (start_date: NaiveDate, diary_length: u32) -> Vec<Record>;
 pub const MARK: &str = "●";
 pub const DAYS_IN_WEEK: u32 = 7;
 pub const DAYS_IN_WORK_CYCLE: u32 = 4;
+pub const DAYS_IN_WORK_CYCLE_33: u32 = 6;
 pub const AVAILABLE_MEASUREMENTS_IN_WORK_DAY: [u32; 3] = [1, 5, 6]; //can be mesuried b.breakfast, b.dinner, a.dinner
 pub const NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY: u32 = 4; //can be mesuried b.breakfast, a.breakfast, b.dinner, a.dinner
 pub const NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY: u32 = 6; //all mesurement
@@ -45,6 +46,7 @@ pub enum DiaryTypes {
     FivePerWeek22Work = 1, // five measurements per week with a 2/2 work schedule
     TwoPerDay = 2, // two measurements per day without limits
     FivePerWeek = 0, // five measurements per week without limits
+    FivePerWeek33Work = 4, // five measurements per week with a 3/3 work schedule
 }
 
 impl fmt::Display for DiaryTypes {
@@ -52,6 +54,7 @@ impl fmt::Display for DiaryTypes {
         match self {
             DiaryTypes::FivePerWeek => write!(f, "Пять измерений в неделю без ограничений"),
             DiaryTypes::FivePerWeek22Work => write!(f, "Пять измерений в неделю c рабочим графиком 2/2 с ночной сменой"),
+            DiaryTypes::FivePerWeek33Work => write!(f, "Пять измерений в неделю c рабочим графиком 3/3 с ночной сменой"),
             DiaryTypes::TwoPerDay => write!(f, "Два измерения в день без ограничений"),
             DiaryTypes::TwoPerDay22Work => write!(f, "Два измерения в день с рабочим графиком 2/2 с ночной сменой"),
         }
