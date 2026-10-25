@@ -1,0 +1,8 @@
+This is console utility for preparing a diary for measurements sugar level in the blood.
+It have a dialog for choosing diary type. The diary writing to the output.txt. Main data writing to the input.json. If this file not exist, it creating with default data.
+Now there is diary types:
+- 2 measurements per day
+- 2 measurements per day with work cycle 2/2
+- 5 measurements per week
+- 5 measurements per week with work cycle 2/2
+- 5 measurements per week with work cycle 3/3
