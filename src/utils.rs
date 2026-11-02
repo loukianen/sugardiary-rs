@@ -2,6 +2,7 @@ use chrono::{Local, NaiveDate};
 use crate::get_diary_five_per_week::get_diary_five_per_week;
 use crate::get_diary_five_per_week_22_work::get_diary_five_per_week_22_work;
 use crate::get_diary_five_per_week_33_work::get_diary_five_per_week_33_work;
+use crate::get_diary_five_per_week_52_work::get_diary_five_per_week_52_work;
 use crate::get_diary_two_per_day::get_diary_two_per_day;
 use crate::get_diary_two_per_day_22_work::get_diary_two_per_day_22_work;
 use crate::consts::*;
@@ -78,6 +79,7 @@ pub fn get_diary_creator(diary_type: DiaryTypes) -> DiaryCreator {
     DiaryTypes::FivePerWeek => get_diary_five_per_week,
     DiaryTypes::FivePerWeek22Work => get_diary_five_per_week_22_work,
     DiaryTypes::FivePerWeek33Work => get_diary_five_per_week_33_work,
+    DiaryTypes::FivePerWeek52Work => get_diary_five_per_week_52_work,
     DiaryTypes::TwoPerDay => get_diary_two_per_day,
     DiaryTypes::TwoPerDay22Work => get_diary_two_per_day_22_work,
   }

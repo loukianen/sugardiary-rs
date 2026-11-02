@@ -11,6 +11,7 @@ pub const DAYS_IN_WEEK: u32 = 7;
 pub const DAYS_IN_WORK_CYCLE: u32 = 4;
 pub const DAYS_IN_WORK_CYCLE_33: u32 = 6;
 pub const AVAILABLE_MEASUREMENTS_IN_WORK_DAY: [u32; 3] = [1, 5, 6]; //can be mesuried b.breakfast, b.dinner, a.dinner
+pub const AVAILABLE_MEASUREMENTS_IN_LONG_WORK_DAY: [u32; 2] = [1, 5]; //can be mesuried b.breakfast, b.dinner, a.dinner
 pub const NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY: u32 = 4; //can be mesuried b.breakfast, a.breakfast, b.dinner, a.dinner
 pub const NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY: u32 = 6; //all mesurement
 pub const TABLE_HEADER: &str = concat!("    Дата|Измерение сахара крови, ммоль/л\n",
@@ -47,6 +48,7 @@ pub enum DiaryTypes {
     TwoPerDay = 2, // two measurements per day without limits
     FivePerWeek = 0, // five measurements per week without limits
     FivePerWeek33Work = 4, // five measurements per week with a 3/3 work schedule
+    FivePerWeek52Work = 5, // five measurements per week with a 5/2 work schedule
 }
 
 impl fmt::Display for DiaryTypes {
@@ -55,6 +57,7 @@ impl fmt::Display for DiaryTypes {
             DiaryTypes::FivePerWeek => write!(f, "Пять измерений в неделю без ограничений"),
             DiaryTypes::FivePerWeek22Work => write!(f, "Пять измерений в неделю c рабочим графиком 2/2 с ночной сменой"),
             DiaryTypes::FivePerWeek33Work => write!(f, "Пять измерений в неделю c рабочим графиком 3/3 с ночной сменой"),
+            DiaryTypes::FivePerWeek52Work => write!(f, "Пять измерений в неделю c рабочим графиком 5/2"),
             DiaryTypes::TwoPerDay => write!(f, "Два измерения в день без ограничений"),
             DiaryTypes::TwoPerDay22Work => write!(f, "Два измерения в день с рабочим графиком 2/2 с ночной сменой"),
         }

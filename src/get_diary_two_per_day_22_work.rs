@@ -16,7 +16,7 @@ pub fn get_diary_two_per_day_22_work (start_date: NaiveDate, diary_length: u32) 
     let mut record: Record = get_empty_record(cur_date);
     let day_in_work_cycle = index % DAYS_IN_WORK_CYCLE;
     let selected_indexes = match day_in_work_cycle {
-      0 => choose_two_from_amount(&AVAILABLE_MEASUREMENTS_IN_WORK_DAY.to_vec()),
+      0 => choose_two_from_amount(&AVAILABLE_MEASUREMENTS_IN_LONG_WORK_DAY.to_vec()),
       1 => choose_two_from_amount(&NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY),
       _ => choose_two_from_amount(&NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY),
     };
